@@ -1,35 +1,27 @@
 package com.arun.icclimbsystem.viewModel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.arun.icclimbsystem.data.MainRepository
+import com.arun.icclimbsystem.models.Lec
 import com.arun.icclimbsystem.models.Weekday
-import com.arun.icclimbsystem.other.Constants.TAG
-import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 
 class ShowViewModel(
     private val repository: MainRepository
 ) : ViewModel() {
-
+    private val numbersMap = mapOf(1 to 6, 2 to 0, 3 to 1, 4 to 2, 5 to 3, 6 to 4, 7 to 5)
     var weeklyNotes: ArrayList<Weekday>? = null
+    private var weekday: Weekday? = null
 
     init {
         repository.getNotes()
     }
 
-    fun getNotes() {
+    fun getNotes(dayOfWeek: Int): List<Lec>? {
         weeklyNotes = repository.weeklyNotes
-        //weeklyNotes = repository.getNotes()
-        val lec = weeklyNotes!![1]//.lec[1]
-        val result = lec
-        Log.d(TAG, "getNotes: $result")
-        //Log.d(TAG, "getNotes: viewModel is working")
+        val day = numbersMap[dayOfWeek] ?: error("")
+
+        weekday = weeklyNotes?.get(day)
+        //Log.d(TAG, "getNotes: $weekday")
+        return weekday?.lec
     }
-
-
-
 }

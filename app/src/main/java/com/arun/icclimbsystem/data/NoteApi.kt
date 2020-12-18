@@ -7,9 +7,20 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Headers
 
 interface NoteApi {
     /*https://presencex.com/REVA/school/gettimetable*/
+    @Headers(
+//        "year:",
+//        "class:",
+        "section:A",
+        "semester:3",
+        "stream:str003",
+        "request_date:03/12/2020",
+        "api_key:da7b0a5b6396da422ef093ce1c59fc0ee8971406b480f02e2d64cf39f42b896e",
+        "school_id:SCH10100"
+    )
     @GET("gettimetable")
     fun getNotes(): Call<ClassNotes>
 

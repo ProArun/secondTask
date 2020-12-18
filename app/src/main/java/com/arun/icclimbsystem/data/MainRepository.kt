@@ -14,17 +14,11 @@ class MainRepository(
 ) {
     var weeklyNotes: ArrayList<Weekday>? = null
     fun getNotes() {//: List<Weekday>?
-
         api.getNotes()
             .enqueue(object : Callback<ClassNotes> {
                 override fun onResponse(call: Call<ClassNotes>, response: Response<ClassNotes>) {
                     if (response.isSuccessful) {
                         weeklyNotes = response.body()?.weekdays as ArrayList<Weekday>
-                        //val arun = response.body()?.weekdays
-
-                        //val jsonObject = arun?.get(0)
-                        val result = weeklyNotes!![0].lec.size// i don't know why this lec is giving empty
-                        Log.d(TAG, "onResponse: " + result)
 
                         Log.d(TAG, "onResponse: success")
                     } else {
